@@ -79,18 +79,12 @@ function isStartPhrase(text) {
 }
 
 function startPoll(chatId) {
-
-}
-
-bot.onText(new RegExp(`(${START_PHRASES.join(')|(')})`), (msg) => {
-	const chatId = msg.chat.id;
-
 	users[chatId].questionNumber += 1;
 
 	const { question, options } = formQuestionWithOptions(chatId);
 
 	sendQuestion(chatId, question, options);
-});
+}
 
 bot.onText(/\/start/, (msg) => {
 	const chatId = msg.chat.id;
@@ -108,6 +102,11 @@ bot.on('message', (msg) => {
 		/\/start/.test(text) ||
 		isStartPhrase(text)
 	) return;
+
+	if (isStartPhrase(test)) {
+		startPoll(chatId);
+		return;
+	}
 
 	const isAnswerValid = isAnswerValid(chatId, text);
 	const isLastQuestion = users[chatId].questionNumber === 19;
