@@ -47,7 +47,7 @@ function formQuestionWithOptions(chatId) {
 	const questionInfo = QUESTIONS.find(elem => elem.order === currentQuestionNumber);
 
 	const question = `${currentQuestionNumber}. ${questionInfo.question}`;
-	const options = questionInfo.map(elem => [elem]);
+	const options = questionInfo.answers.map(elem => [elem]);
 
 	return { question, options };
 }
