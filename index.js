@@ -71,7 +71,7 @@ function isAnswerValid(chatId, text) {
 	const currentQuestionNumber = users[chatId].questionNumber;
 	const answers = QUESTIONS.find(elem => elem.order === currentQuestionNumber).answers;
 
-	return answers.some(([answer]) => answer.toLowerCase().indexOf(text) === 0);
+	return answers.some(([answer]) => answer.toLowerCase().indexOf(text.toLowerCase()) === 0);
 }
 
 function isStartPhrase(text) {
