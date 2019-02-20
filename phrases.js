@@ -196,4 +196,4 @@ const getResultText = result =>
 
 module.exports = {
 	QUESTIONS, GREETING, PROFESSIONS, getResultText
-}:
+};

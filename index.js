@@ -1,5 +1,5 @@
 const TelegramBot = require('node-telegram-bot-api');
-const { GREETING, PROFESSIONS, QUESTIONS, getResultText } = require('phrases');
+const { GREETING, PROFESSIONS, QUESTIONS, getResultText } = require('./phrases.js');
 
 const TOKEN = '740147923:AAEUa5LoNT5rulsyFHwXgxl1hERT9aTlAik';
 
