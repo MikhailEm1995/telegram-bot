@@ -67,11 +67,11 @@ function sendResult(chatId) {
 	bot.sendMessage(chatId, resultText);
 }
 
-function isAnswerValid(chatId, text) {
+function checkIsAnswerValid(chatId, text) {
 	const currentQuestionNumber = users[chatId].questionNumber;
 	const answers = QUESTIONS.find(elem => elem.order === currentQuestionNumber).answers;
 
-	return answers.some(([answer]) => answer.toLowerCase().indexOf(text.toLowerCase()) === 0);
+	return answers.some(([answer]) => answer.toLowerCase() === text);
 }
 
 function isStartPhrase(text) {
@@ -105,7 +105,7 @@ bot.on('message', (msg) => {
 		return;
 	}
 
-	const isAnswerValid = isAnswerValid(chatId, text);
+	const isAnswerValid = checkIsAnswerValid(chatId, text);
 	const isLastQuestion = users[chatId].questionNumber === 19;
 
 	if (isAnswerValid && isLastQuestion) {
