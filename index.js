@@ -98,12 +98,9 @@ bot.on('message', (msg) => {
 	const chatId = msg.chat.id;
 	const text = msg.text.toString().toLowerCase();
 
-	if (
-		/\/start/.test(text) ||
-		isStartPhrase(text)
-	) return;
+	if (/\/start/.test(text)) return;
 
-	if (isStartPhrase(test)) {
+	if (isStartPhrase(teXt)) {
 		startPoll(chatId);
 		return;
 	}
