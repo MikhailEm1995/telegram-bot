@@ -100,7 +100,7 @@ bot.on('message', (msg) => {
 
 	if (/\/start/.test(text)) return;
 
-	if (isStartPhrase(teXt)) {
+	if (isStartPhrase(text)) {
 		startPoll(chatId);
 		return;
 	}
