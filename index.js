@@ -75,7 +75,7 @@ function isAnswerValid(chatId, text) {
 }
 
 function isStartPhrase(text) {
-	return START_PHRASES.some(phrase => phrase === text);
+	return START_PHRASES.some(phrase => phrase.toLowerCase() === text);
 }
 
 function startPoll(chatId) {
