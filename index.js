@@ -95,7 +95,7 @@ function sendResult(chatId) {
 	const resultText = getResultText(randomProfession.text);
 
 	bot.sendMessage(chatId, resultText, { parse_mode: "HTML" });
-	bot.sendDoc(chatId, randomProfession.img);
+	bot.sendDocument(chatId, randomProfession.img);
 }
 
 function checkIsAnswerValid(chatId, text) {
