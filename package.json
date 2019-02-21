@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/MikhailEm1995/telegram-bot#readme",
   "dependencies": {
+    "express": "^4.16.4",
+    "lodash": "^4.17.11",
     "node-telegram-bot-api": "^0.30.0"
   }
 }

@@ -1,4 +1,10 @@
+const childProcess = require('child_process');
+const path = require('path');
+const fs = require('fs');
+
 const TelegramBot = require('node-telegram-bot-api');
+const debounce = require('lodash/debounce');
+
 const { GREETING, PROFESSIONS, QUESTIONS, getResultText } = require('./phrases.js');
 
 const TOKEN = '740147923:AAEUa5LoNT5rulsyFHwXgxl1hERT9aTlAik';
@@ -18,6 +24,29 @@ const states = {
 };
 
 const initialUser = { state: states.IDLE, questionNumber: 0 };
+
+childProcess.fork(path.resolve(__dirname, './images.js'));
+
+let users = 0;
+let passed = 0;
+const statPath = path.resolve(__dirname, './statistics.json');
+let isWriting = false;
+
+function getStatJSON() {
+	return JSON.stringify({ users, passed });
+}
+
+function updateStatFile() {
+	isWriting = true;
+	const data = new Uint8Array(Buffer.from(getStatJSON()))
+
+	fs.writeFile(statPath, data, (err) => {
+		if (err) console.log('err couldnt write file');
+		isWriting = false;
+	});
+}
+
+const debouncedUpdateStatFile = debounce(updateStatFile, 500);
 
 function getRandomArrayElement(array) {
 	const randomIdx = Math.floor(Math.random() * array.length);
@@ -61,11 +90,14 @@ function sendQuestion(chatId, question, options) {
 	});
 }
 
+const imagesHost = 'http://18.220.243.158:8080/';
+
 function sendResult(chatId) {
 	const randomProfession = getRandomArrayElement(PROFESSIONS);
-	const resultText = getResultText(randomProfession);
+	const resultText = getResultText(randomProfession.text);
 
 	bot.sendMessage(chatId, resultText, { parse_mode: "HTML" });
+	bot.sendPhoto(chatId, imagesHost + randomProfession.img);
 }
 
 function checkIsAnswerValid(chatId, text) {
@@ -90,7 +122,16 @@ function startPoll(chatId) {
 bot.onText(/\/start/, (msg) => {
 	const chatId = msg.chat.id;
 
-	users[chatId] = { ...initialUser };
+	if (!(chatId in users)) {
+		users += 1;
+		debouncedUpdateStatFile();
+	}
+
+	if (users[chatId].isPassed === undefined) {
+		users[chatId] = { ...initialUser, isPassed: false };
+	} else {
+		users[chatId] = { ...initialUser, isPassed: users[chatId].isPassed };
+	}
 
 	sendGreeting(chatId);
 });
@@ -112,7 +153,11 @@ bot.on('message', (msg) => {
 	if (isAnswerValid && isLastQuestion) {
 		sendResult(chatId);
 
-		users[chatId] = { ...initialUser };
+		if (!users[chatId].isPassed) {
+			passed += 1;
+			updateStatFile();
+		}
+		users[chatId] = { ...initialUser, isPassed: true };
 		sendRepeatedGreeting(chatId);
 	} else if (isAnswerValid) {
 		users[chatId].questionNumber += 1;
