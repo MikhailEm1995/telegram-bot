@@ -25,7 +25,7 @@ const states = {
 
 const initialUser = { state: states.IDLE, questionNumber: 0 };
 
-childProcess.fork(path.resolve(__dirname, './images.js'));
+//childProcess.fork(path.resolve(__dirname, './images.js'));
 
 let usersNumber = 0;
 let passed = 0;
@@ -90,14 +90,12 @@ function sendQuestion(chatId, question, options) {
 	});
 }
 
-const imagesHost = 'http://18.220.243.158:3000/';
-
 function sendResult(chatId) {
 	const randomProfession = getRandomArrayElement(PROFESSIONS);
 	const resultText = getResultText(randomProfession.text);
 
 	bot.sendMessage(chatId, resultText, { parse_mode: "HTML" });
-	bot.sendPhoto(chatId, imagesHost + randomProfession.img);
+	bot.sendPhoto(chatId, randomProfession.img);
 }
 
 function checkIsAnswerValid(chatId, text) {
