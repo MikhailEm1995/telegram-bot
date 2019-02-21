@@ -33,7 +33,7 @@ function sendGreeting(chatId) {
 	});
 }
 
-function sendRepetedGreeting(chatId) {
+function sendRepeatedGreeting(chatId) {
 	bot.sendMessage(chatId, 'Оу, я смотрю, тебе понравилось. Хочешь ещё раз?', {
 		"reply_markup": {
 			"keyboard": [[START_PHRASES[1]]]
