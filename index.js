@@ -94,6 +94,8 @@ function sendResult(chatId) {
 	const randomProfession = getRandomArrayElement(PROFESSIONS);
 	const resultText = getResultText(randomProfession.text);
 
+	const stream = fs.createReadStream(path.resolve(__dirname, './' + randomProfession.img));
+
 	bot.sendMessage(chatId, resultText, { parse_mode: "HTML" });
 	bot.sendPhoto(chatId, randomProfession.img);
 }
