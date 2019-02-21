@@ -90,7 +90,7 @@ function sendQuestion(chatId, question, options) {
 	});
 }
 
-const imagesHost = 'http://18.220.243.158:8080/';
+const imagesHost = 'http://18.220.243.158:3000/';
 
 function sendResult(chatId) {
 	const randomProfession = getRandomArrayElement(PROFESSIONS);
