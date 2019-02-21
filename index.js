@@ -143,6 +143,11 @@ bot.on('message', (msg) => {
 		return;
 	}
 
+	if (!(chatId in users)) {
+		sendRepeatedGreeting();
+		return;
+	}
+
 	const isAnswerValid = checkIsAnswerValid(chatId, text);
 	const isLastQuestion = users[chatId].questionNumber === 19;
 
