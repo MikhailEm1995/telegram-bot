@@ -95,7 +95,7 @@ function sendResult(chatId) {
 	const resultText = getResultText(randomProfession.text);
 
 	bot.sendMessage(chatId, resultText, { parse_mode: "HTML" });
-	bot.sendDocument(chatId, randomProfession.img);
+	return bot.sendDocument(chatId, randomProfession.img);
 }
 
 function checkIsAnswerValid(chatId, text) {
@@ -152,14 +152,15 @@ bot.on('message', (msg) => {
 	const isLastQuestion = users[chatId].questionNumber === 19;
 
 	if (isAnswerValid && isLastQuestion) {
-		sendResult(chatId);
+		sendResult(chatId).finally(() => {
+			users[chatId] = { ...initialUser, isPassed: true };
+			sendRepeatedGreeting(chatId);
+		});
 
 		if (!users[chatId].isPassed) {
 			passed += 1;
 			updateStatFile();
 		}
-		users[chatId] = { ...initialUser, isPassed: true };
-		sendRepeatedGreeting(chatId);
 	} else if (isAnswerValid) {
 		users[chatId].questionNumber += 1;
 
