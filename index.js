@@ -27,13 +27,13 @@ const initialUser = { state: states.IDLE, questionNumber: 0 };
 
 childProcess.fork(path.resolve(__dirname, './images.js'));
 
-let users = 0;
+let usersNumber = 0;
 let passed = 0;
 const statPath = path.resolve(__dirname, './statistics.json');
 let isWriting = false;
 
 function getStatJSON() {
-	return JSON.stringify({ users, passed });
+	return JSON.stringify({ users: usersNumber, passed });
 }
 
 function updateStatFile() {
@@ -123,7 +123,7 @@ bot.onText(/\/start/, (msg) => {
 	const chatId = msg.chat.id;
 
 	if (!(chatId in users)) {
-		users += 1;
+		usersNumber += 1;
 		debouncedUpdateStatFile();
 	}
 
