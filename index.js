@@ -111,7 +111,7 @@ bot.on('message', (msg) => {
 	if (isAnswerValid && isLastQuestion) {
 		sendResult(chatId);
 
-		users[chatId].state = { ...initialUser };
+		users[chatId] = { ...initialUser };
 		sendRepeatedGreeting(chatId);
 	} else if (isAnswerValid) {
 		users[chatId].questionNumber += 1;
