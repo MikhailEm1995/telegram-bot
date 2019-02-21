@@ -56,7 +56,8 @@ function sendQuestion(chatId, question, options) {
 	bot.sendMessage(chatId, question, {
 		"reply_markup": {
 			"keyboard": options
-		}
+		},
+		parse_mode: "HTML"
 	});
 }
 
@@ -64,7 +65,7 @@ function sendResult(chatId) {
 	const randomProfession = getRandomArrayElement(PROFESSIONS);
 	const resultText = getResultText(randomProfession);
 
-	bot.sendMessage(chatId, resultText);
+	bot.sendMessage(chatId, resultText, { parse_mode: "HTML" });
 }
 
 function checkIsAnswerValid(chatId, text) {
