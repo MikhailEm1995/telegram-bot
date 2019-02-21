@@ -175,11 +175,11 @@ const QUESTIONS = [
 const GREETING = `- Ответь-ка мне дружочек-пирожочек на несколько вопросов 👩‍⚕️`;
 
 const PROFESSIONS = [
-	{ text: 'Еррор детектор', img: 'error_detector.jpg' },
-	{ text: 'Капитан конфликт-резолвинга', img: 'conflict_resolve.jpg' },
-	{ text: 'Рядовой фича-криейтор', img: 'feature_creator.jpg' },
-	{ text: 'Старший разбилдяй', img: 'builder.jpg' },
-	{ text: 'Начальник бригады хендмейкеров', img: 'handmakers.jpg' }
+	{ text: 'Еррор детектор', img: 'https://i.imgur.com/5Ayzszj.jpg' },
+	{ text: 'Капитан конфликт-резолвинга', img: 'https://i.imgur.com/5Ayzszj.jpg' },
+	{ text: 'Рядовой фича-криейтор', img: 'https://i.imgur.com/5Ayzszj.jpg' },
+	{ text: 'Старший разбилдяй', img: 'https://i.imgur.com/5Ayzszj.jpg' },
+	{ text: 'Начальник бригады хендмейкеров', img: 'https://i.imgur.com/5Ayzszj.jpg' }
 ];
 
 const getResultText = result =>
