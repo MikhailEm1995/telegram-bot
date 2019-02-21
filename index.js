@@ -71,7 +71,7 @@ function checkIsAnswerValid(chatId, text) {
 	const currentQuestionNumber = users[chatId].questionNumber;
 	const answers = QUESTIONS.find(elem => elem.order === currentQuestionNumber).answers;
 
-	return answers.some(([answer]) => answer.toLowerCase() === text);
+	return answers.some(answer => answer.toLowerCase() === text);
 }
 
 function isStartPhrase(text) {
@@ -81,7 +81,7 @@ function isStartPhrase(text) {
 function startPoll(chatId) {
 	users[chatId].questionNumber += 1;
 
-	const { question, options } = formQuestionWithOptions(chatId);
+	const { question, options } = formQuestionWithOptions(chatId); 
 
 	sendQuestion(chatId, question, options);
 }
