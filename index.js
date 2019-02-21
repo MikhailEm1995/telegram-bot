@@ -122,15 +122,13 @@ function startPoll(chatId) {
 bot.onText(/\/start/, (msg) => {
 	const chatId = msg.chat.id;
 
-	if (!('isPassed' in users[chatId]) || users[chatId].isPassed === false) {
-		users[chatId] = { ...initialUser, isPassed: false };
-	} else {
-		users[chatId] = { ...initialUser, isPassed: users[chatId].isPassed };
-	}
-
 	if (!(chatId in users)) {
+		users[chatId] = { ...initialUser, isPassed: false };
+
 		usersNumber += 1;
 		debouncedUpdateStatFile();
+	} else {
+		users[chatId] = { ...initialUser, isPassed: users[chatId].isPassed };
 	}
 
 	sendGreeting(chatId);
